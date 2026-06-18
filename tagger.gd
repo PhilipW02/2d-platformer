@@ -6,7 +6,6 @@ extends Sprite2D
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -14,3 +13,5 @@ func _process(delta: float) -> void:
 func tagged(tagger, player):
 	tagger.istagger = false
 	player.istagger = true
+
+#ass
