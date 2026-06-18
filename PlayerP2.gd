@@ -15,8 +15,12 @@ func _ready():
 func _physics_process(_delta: float) -> void:
 	if istagger == false:
 		taggerindicator.visible = false
+		speed = 250.0
+		jump_impulse = 500.0
 	if istagger == true:
 		taggerindicator.visible = true
+		speed = 275.0
+		jump_impulse = 550.0
 	
 	#Gravity
 	if not is_on_floor():

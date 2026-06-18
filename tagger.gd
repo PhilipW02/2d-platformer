@@ -1,6 +1,6 @@
 extends Sprite2D
-@onready var playerp1 = $Player1
-@onready var playerp2 = $Player2
+#@onready var playerp1 = $Player1
+#@onready var playerp2 = $Player2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
