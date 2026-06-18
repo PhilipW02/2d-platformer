@@ -1,0 +1,2 @@
+camera should be in the center between the most far player and the most close player.
+how further the far player is, the less space between the far player and the far wall, so the camera field grows slower than the player movement but is always in front.
