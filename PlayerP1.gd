@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var jump_impulse = 500.0
 @export var gravity = 1000.0
 @export var speed = 250.0
-@export var istagger = true
+@export var istagger = false
 @export var player_number: int
 var touched_player = false
 var tagtimeouton = false
@@ -12,7 +12,12 @@ var can_tag = true
 @onready var taggerindicator = $taggerindicator
 
 func _ready():
-	pass
+	choose_tagger()
+	
+func _on_touch_box_body_exited(body: Node2D) -> void:
+	if istagger:
+		print("tagger set to true for player1")
+		can_tag = true
 
 func _physics_process(_delta: float) -> void:
 	if istagger == false:
@@ -45,12 +50,10 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 
-
-
-func _on_touch_box_body_exited(body: Node2D) -> void:
-	if istagger:
-		print("tagger set to true for player1")
-		can_tag = true
+func choose_tagger():
+	var player = RandomNumberGenerator.new().randi_range(0, 1)
+	print(player)
+	istagger = true
 
 func _on_touch_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
@@ -60,5 +63,5 @@ func _on_touch_box_body_entered(body: Node2D) -> void:
 		can_tag = false
 		istagger = false
 		body.istagger = true
-	if not istagger and not body.istagger:
-		istagger = true
+	#if not istagger and not body.istagger:
+		#istagger = true

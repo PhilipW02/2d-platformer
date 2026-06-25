@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://c4aoebjj8nhtn"]
 
-[ext_resource type="Texture2D" uid="uid://cdlvwyln3y5lw" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/preview.png" id="1_hqns4"]
 [ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="1_kdubu"]
 [ext_resource type="Texture2D" uid="uid://ijg88gwcerim" path="res://Assets/Terrain/Terrain (16x16).png" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://d0cv4nldaqjin" path="res://Assets/Background/Green.png" id="2_hqns4"]
+[ext_resource type="Texture2D" uid="uid://jxu5xk6v80ts" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/layers/middle.png" id="2_x0ka3"]
 [ext_resource type="Script" uid="uid://caisu44af80tn" path="res://PlayerP1.gd" id="3_0hol4"]
 [ext_resource type="Script" uid="uid://c3cog55fmtdsw" path="res://bgm.gd" id="4_ir8iy"]
 [ext_resource type="AudioStream" uid="uid://b6jt0ky4ekvrq" path="res://Assets/Sound/wahoo.wav" id="5_q6r6c"]
@@ -328,11 +328,6 @@ height = 84.0
 
 [node name="Stage" type="Node2D" parent="." unique_id=825542783]
 
-[node name="Background" type="Sprite2D" parent="Stage" unique_id=1006314505]
-position = Vector2(602, 276)
-scale = Vector2(4.4382243, 3.443299)
-texture = ExtResource("1_hqns4")
-
 [node name="TextureRect" type="TextureRect" parent="Stage" unique_id=125519299]
 offset_left = -31.0
 offset_top = -7.0
@@ -340,6 +335,11 @@ offset_right = 1186.0
 offset_bottom = 664.0
 texture = ExtResource("2_hqns4")
 stretch_mode = 1
+
+[node name="Middle" type="Sprite2D" parent="Stage" unique_id=1087498242]
+position = Vector2(577.75006, 284.5)
+scale = Vector2(4.443015, 3.6312501)
+texture = ExtResource("2_x0ka3")
 
 [node name="TileMap" type="TileMap" parent="Stage" unique_id=554654185]
 texture_filter = 1
