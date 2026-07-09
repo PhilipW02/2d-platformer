@@ -3,43 +3,39 @@ extends CharacterBody2D
 @export var jump_impulse = 500.0
 @export var gravity = 1000.0
 @export var speed = 250.0
-@export var istagger = false
+var istagger = false
+var can_tag = true
 @export var player_number: int
-#var touched_player = false
-#var tagtimeouton = false
-var can_tag = false
-
-var _player: CharacterBody2D
 @onready var taggerindicator = $taggerindicator
+#var _player: CharacterBody2D
 
 # Tagger Interaction	
-func tag(player: CharacterBody2D):
-	if not istagger:
-		return
+#func tag(player: CharacterBody2D):
+	#if not istagger:
+		#return
 		
-	self.istagger = false
-	var timer = Timer.new()
-	self.add_child(timer)
-	timer.wait_time = 1
-	timer.timeout.connect(func(): player.istagger = true)
-	timer.start()
-	
-func _on_touch_box_body_entered(body: Node2D) -> void:
-	if body.is_in_group("players") && istagger:
-		print("")
-		print("player exited: ", body)
-		_player = body
+	#self.istagger = false
+	#var timer = Timer.new()
+	#self.add_child(timer)
+	#timer.wait_time = 0.25
+	#timer.timeout.connect(func(): player.istagger = true)
+	#timer.start()
 
-func _on_touch_box_body_exited(_body: Node2D) -> void:
-	if istagger:
-		can_tag = true
-		if _body == _player:
-			_player._player = null
-			tag(_player)
-		print("tagger set to true for player1")
-		_body.istagger = false
-	else:
-		can_tag = false
+func _on_touch_box_body_entered(body: Node2D) -> void:
+	if body.is_in_group("players"):
+		print('im player', player_number, ', istagger = ', istagger)
+		
+		if istagger == true && can_tag:
+			can_tag = false
+			istagger = false
+			body.istagger = true
+			print("Successfully tagged: ", body.name)
+		
+func _on_touch_box_body_exited(body: Node2D) -> void:
+	if body.is_in_group("players"):
+		if istagger:
+			print("Tagger ready to tag again.")
+			can_tag = true
 		
 # Movement	
 func _physics_process(_delta: float) -> void:

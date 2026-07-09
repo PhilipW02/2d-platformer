@@ -8,10 +8,10 @@ func _ready() -> void:
 func choose_tagger():
 	var player_number = RandomNumberGenerator.new().randi_range(0, 1)
 	if player_number == 0:
-		_player2.istagger = true
-	else:
 		_player1.istagger = true
-	
+	else:
+		_player2.istagger = true
+
 func tagged(tagger, player_number):
 	tagger.istagger = false
 	player_number.istagger = true
