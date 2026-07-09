@@ -20,7 +20,7 @@ func tag(player: CharacterBody2D):
 	self.istagger = false
 	var timer = Timer.new()
 	self.add_child(timer)
-	timer.wait_time = 0.25
+	timer.wait_time = 1
 	timer.timeout.connect(func(): player.istagger = true)
 	timer.start()
 	
@@ -34,8 +34,12 @@ func _on_touch_box_body_exited(_body: Node2D) -> void:
 	if istagger:
 		can_tag = true
 		if _body == _player:
+			_player._player = null
 			tag(_player)
 		print("tagger set to true for player1")
+		_body.istagger = false
+	else:
+		can_tag = false
 		
 # Movement	
 func _physics_process(_delta: float) -> void:
