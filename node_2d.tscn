@@ -2,15 +2,14 @@
 
 [ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="1_kdubu"]
 [ext_resource type="Texture2D" uid="uid://ijg88gwcerim" path="res://Assets/Terrain/Terrain (16x16).png" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://cabppt7f1vwvx" path="res://MainGame.gd" id="1_x0ka3"]
 [ext_resource type="Texture2D" uid="uid://d0cv4nldaqjin" path="res://Assets/Background/Green.png" id="2_hqns4"]
 [ext_resource type="Texture2D" uid="uid://jxu5xk6v80ts" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/layers/middle.png" id="2_x0ka3"]
-[ext_resource type="Script" uid="uid://caisu44af80tn" path="res://PlayerP1.gd" id="3_0hol4"]
-[ext_resource type="Script" uid="uid://c3cog55fmtdsw" path="res://bgm.gd" id="4_ir8iy"]
+[ext_resource type="Script" uid="uid://caisu44af80tn" path="res://Player.gd" id="3_0hol4"]
 [ext_resource type="AudioStream" uid="uid://b6jt0ky4ekvrq" path="res://Assets/Sound/wahoo.wav" id="5_q6r6c"]
 [ext_resource type="Texture2D" uid="uid://br3lqfbo4juax" path="res://Assets/pixel-16x16 (2).png" id="8_x0ka3"]
 [ext_resource type="Texture2D" uid="uid://c6qi1ledopr6f" path="res://Assets/pixel-16x16.png" id="9_hqns4"]
 [ext_resource type="Texture2D" uid="uid://q88dtoko5x1c" path="res://Assets/pixel-16x16 (1).png" id="9_x0ka3"]
-[ext_resource type="Script" uid="uid://b5oxp222qm2v" path="res://tagger.gd" id="11_hqns4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtcfe"]
 texture = ExtResource("1_wtcfe")
@@ -325,6 +324,7 @@ radius = 22.0
 height = 84.0
 
 [node name="TagGame" type="Node2D" unique_id=819537341]
+script = ExtResource("1_x0ka3")
 
 [node name="Stage" type="Node2D" parent="." unique_id=825542783]
 
@@ -357,7 +357,6 @@ tile_set = SubResource("TileSet_0e48y")
 stream = ExtResource("1_kdubu")
 volume_db = -30.0
 autoplay = true
-script = ExtResource("4_ir8iy")
 
 [node name="Player1" type="CharacterBody2D" parent="." unique_id=1626084060 groups=["players"]]
 position = Vector2(134, 46)
@@ -393,21 +392,18 @@ texture_filter = 1
 position = Vector2(116, 477)
 texture = ExtResource("8_x0ka3")
 
-[node name="Tagger" type="Sprite2D" parent="." unique_id=189051246]
-script = ExtResource("11_hqns4")
-
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=1224170065 groups=["players"]]
 collision_layer = 2
 script = ExtResource("3_0hol4")
 player_number = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=790191732]
-position = Vector2(65, 521)
+position = Vector2(411, 515)
 shape = SubResource("RectangleShape2D_epypp")
 
 [node name="Character" type="Sprite2D" parent="Player2" unique_id=1312735429]
 texture_filter = 1
-position = Vector2(65, 521)
+position = Vector2(410.99997, 515)
 scale = Vector2(3.1250002, 4.125)
 texture = ExtResource("9_x0ka3")
 
@@ -416,7 +412,7 @@ position = Vector2(7, -9)
 stream = ExtResource("5_q6r6c")
 
 [node name="TouchBox" type="Area2D" parent="Player2" unique_id=1775423262]
-position = Vector2(101, 501)
+position = Vector2(447, 495)
 collision_layer = 2
 collision_mask = 2
 
@@ -426,7 +422,7 @@ shape = SubResource("CapsuleShape2D_hqns4")
 
 [node name="taggerindicator" type="Sprite2D" parent="Player2" unique_id=1687642658]
 texture_filter = 1
-position = Vector2(65, 473)
+position = Vector2(411, 467)
 texture = ExtResource("8_x0ka3")
 
 [connection signal="body_entered" from="Player1/TouchBox" to="Player1" method="_on_touch_box_body_entered"]

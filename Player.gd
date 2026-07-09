@@ -5,20 +5,39 @@ extends CharacterBody2D
 @export var speed = 250.0
 @export var istagger = false
 @export var player_number: int
-var touched_player = false
-var tagtimeouton = false
-var can_tag = true
+#var touched_player = false
+#var tagtimeouton = false
+var can_tag = false
 
+var _player: CharacterBody2D
 @onready var taggerindicator = $taggerindicator
 
-func _ready():
-	choose_tagger()
+# Tagger Interaction	
+func tag(player: CharacterBody2D):
+	if not istagger:
+		return
+		
+	self.istagger = false
+	var timer = Timer.new()
+	self.add_child(timer)
+	timer.wait_time = 0.25
+	timer.timeout.connect(func(): player.istagger = true)
+	timer.start()
 	
-func _on_touch_box_body_exited(body: Node2D) -> void:
-	if istagger:
-		print("tagger set to true for player1")
-		can_tag = true
+func _on_touch_box_body_entered(body: Node2D) -> void:
+	if body.is_in_group("players") && istagger:
+		print("")
+		print("player exited: ", body)
+		_player = body
 
+func _on_touch_box_body_exited(_body: Node2D) -> void:
+	if istagger:
+		can_tag = true
+		if _body == _player:
+			tag(_player)
+		print("tagger set to true for player1")
+		
+# Movement	
 func _physics_process(_delta: float) -> void:
 	if istagger == false:
 		taggerindicator.visible = false
@@ -26,8 +45,8 @@ func _physics_process(_delta: float) -> void:
 		jump_impulse = 500.0
 	if istagger == true:
 		taggerindicator.visible = true
-		speed = 275.0
-		jump_impulse = 550.0
+		speed = 262.5
+		jump_impulse = 525.0
 
 	#Gravity
 	if not is_on_floor():
@@ -49,19 +68,3 @@ func _physics_process(_delta: float) -> void:
 		$Character.flip_h = false
 	
 	move_and_slide()
-
-func choose_tagger():
-	var player = RandomNumberGenerator.new().randi_range(0, 1)
-	print(player)
-	istagger = true
-
-func _on_touch_box_body_entered(body: Node2D) -> void:
-	if body.is_in_group("players"):
-		print("player exited: ", body)
-		print('im player', player_number, ', istagger = ', istagger)
-	if istagger == true && can_tag:
-		can_tag = false
-		istagger = false
-		body.istagger = true
-	#if not istagger and not body.istagger:
-		#istagger = true
