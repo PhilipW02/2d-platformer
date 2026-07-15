@@ -15,3 +15,7 @@ func choose_tagger():
 func tagged(tagger, player_number):
 	tagger.istagger = false
 	player_number.istagger = true
+
+# Start-logic fix
+# proper camera
+# physics scaling

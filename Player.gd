@@ -3,33 +3,37 @@ extends CharacterBody2D
 @export var jump_impulse = 500.0
 @export var gravity = 1000.0
 @export var speed = 250.0
-var istagger = false
-var can_tag = true
 @export var player_number: int
 @onready var taggerindicator = $taggerindicator
-#var _player: CharacterBody2D
+
+var istagger = false:
+	set(value):
+		istagger = value
+		if taggerindicator:
+			taggerindicator.visible = value
+var can_tag = true
 
 # Tagger Interaction	
 #func tag(player: CharacterBody2D):
 	#if not istagger:
 		#return
-		
-	#self.istagger = false
-	#var timer = Timer.new()
-	#self.add_child(timer)
-	#timer.wait_time = 0.25
-	#timer.timeout.connect(func(): player.istagger = true)
-	#timer.start()
+
+func get_tagged() -> void:
+	istagger = true
+	can_tag = false
 
 func _on_touch_box_body_entered(body: Node2D) -> void:
-	if body.is_in_group("players"):
-		print('im player', player_number, ', istagger = ', istagger)
+	if body == self:
+		return
 		
-		if istagger == true && can_tag:
+	if body.is_in_group("players"):
+		print('im player', player_number, ', istagger = ', istagger)	
+		if istagger && can_tag:
 			can_tag = false
 			istagger = false
-			body.istagger = true
-			print("Successfully tagged: ", body.name)
+			print("Tagger: ", body.name)
+			if body.has_method("get_tagged"):
+				body.get_tagged()
 		
 func _on_touch_box_body_exited(body: Node2D) -> void:
 	if body.is_in_group("players"):
@@ -41,12 +45,12 @@ func _on_touch_box_body_exited(body: Node2D) -> void:
 func _physics_process(_delta: float) -> void:
 	if istagger == false:
 		taggerindicator.visible = false
-		speed = 250.0
-		jump_impulse = 500.0
+		speed = 125.0
+		jump_impulse = 400.0
 	if istagger == true:
 		taggerindicator.visible = true
-		speed = 262.5
-		jump_impulse = 525.0
+		speed = 131.25
+		jump_impulse = 420.0
 
 	#Gravity
 	if not is_on_floor():
