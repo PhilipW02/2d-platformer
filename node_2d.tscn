@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://b6jt0ky4ekvrq" path="res://Assets/Sound/wahoo.wav" id="5_q6r6c"]
 [ext_resource type="Texture2D" uid="uid://bb8gwvjw0uba3" path="res://Assets/Main Characters/Ninja Frog/Jump (32x32).png" id="7_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://br3lqfbo4juax" path="res://Assets/pixel-16x16 (2).png" id="8_x0ka3"]
+[ext_resource type="Script" uid="uid://41rolmn0l4ar" path="res://Camera.gd" id="11_hqns4"]
 [ext_resource type="Texture2D" uid="uid://cl3xe2tnkiuil" path="res://Assets/Main Characters/Virtual Guy/Jump (32x32).png" id="11_x0ka3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtcfe"]
@@ -329,15 +330,15 @@ script = ExtResource("1_x0ka3")
 [node name="Stage" type="Node2D" parent="." unique_id=825542783]
 
 [node name="TextureRect" type="TextureRect" parent="Stage" unique_id=125519299]
-offset_left = -31.0
-offset_top = -7.0
-offset_right = 1186.0
-offset_bottom = 664.0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 1178.0
+offset_bottom = 648.0
 texture = ExtResource("2_hqns4")
 stretch_mode = 1
 
 [node name="Middle" type="Sprite2D" parent="Stage" unique_id=1087498242]
-position = Vector2(577.75006, 284.5)
+position = Vector2(597, 287.00003)
 scale = Vector2(4.443015, 3.6312501)
 texture = ExtResource("2_x0ka3")
 
@@ -418,6 +419,12 @@ shape = SubResource("CapsuleShape2D_hqns4")
 texture_filter = 1
 position = Vector2(207, 192)
 texture = ExtResource("8_x0ka3")
+
+[node name="GameCam" type="Camera2D" parent="." unique_id=156851660]
+position = Vector2(-6, -3)
+anchor_mode = 0
+zoom = Vector2(1.95, 1.95)
+script = ExtResource("11_hqns4")
 
 [connection signal="body_entered" from="Player1/TouchBox" to="Player1" method="_on_touch_box_body_entered"]
 [connection signal="body_exited" from="Player1/TouchBox" to="Player1" method="_on_touch_box_body_exited"]

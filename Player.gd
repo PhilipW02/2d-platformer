@@ -45,11 +45,11 @@ func _on_touch_box_body_exited(body: Node2D) -> void:
 func _physics_process(_delta: float) -> void:
 	if istagger == false:
 		taggerindicator.visible = false
-		speed = 125.0
+		speed = 150.0
 		jump_impulse = 400.0
 	if istagger == true:
 		taggerindicator.visible = true
-		speed = 131.25
+		speed = 157.5
 		jump_impulse = 420.0
 
 	#Gravity
