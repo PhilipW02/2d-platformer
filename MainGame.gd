@@ -19,7 +19,7 @@ func tagged(tagger, player_number):
 # To-do List
 # Start-logic fix
 # proper camera
-# physics scaling
+# physics scaling (Coyote-time + Jump-buffer)
 
 # Links
 # https://phantom-camera.dev/follow-modes/group
