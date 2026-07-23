@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://4qhhif7ohsy"]
+
+[ext_resource type="Script" uid="uid://b1wcixerycfed" path="res://enuMniaM.gd" id="1_i26rj"]
+
+[node name="Control" type="Control" unique_id=1932525648]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i26rj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1668617066]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 646.0
+color = Color(0.5411765, 1, 1, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=123872360]
+modulate = Color(1, 0.14509805, 1, 1)
+layout_mode = 0
+offset_left = 351.0
+offset_top = 186.0
+offset_right = 801.0
+offset_bottom = 226.0
+text = "Tag Game
+"
+context_menu_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=2091742692]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 281.0
+offset_right = 704.0
+offset_bottom = 368.0
+text = "Start
+"
+
+[connection signal="button_up" from="Button" to="." method="start_button"]

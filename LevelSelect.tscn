@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://be1hrk564ison"]
+
+[ext_resource type="Script" uid="uid://cr5vhqysahdco" path="res://level_select.gd" id="1_q3t17"]
+[ext_resource type="Texture2D" uid="uid://8srsax6qrmo" path="res://Assets/Background/GrassBG.png" id="1_sf6f5"]
+[ext_resource type="Texture2D" uid="uid://c6qi1ledopr6f" path="res://Assets/pixel-16x16.png" id="3_0bmyu"]
+
+[node name="Control" type="Control" unique_id=1932525648]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q3t17")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1668617066]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 646.0
+color = Color(0.5411765, 1, 1, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=123872360]
+modulate = Color(1, 0.14509805, 1, 1)
+layout_mode = 0
+offset_left = 351.0
+offset_top = 100.0
+offset_right = 801.0
+offset_bottom = 140.0
+text = "Choose Level
+"
+context_menu_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="ColorRect" unique_id=640464029]
+layout_mode = 0
+offset_left = 632.0
+offset_top = 215.0
+offset_right = 997.0
+offset_bottom = 489.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("1_sf6f5")
+
+[node name="TextureButton2" type="TextureButton" parent="ColorRect" unique_id=94865649]
+layout_mode = 0
+offset_left = 351.0
+offset_top = 215.0
+offset_right = 716.0
+offset_bottom = 489.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_0bmyu")
+stretch_mode = 0
+
+[connection signal="button_up" from="ColorRect/TextureButton" to="." method="Select_Level1"]
+[connection signal="button_up" from="ColorRect/TextureButton2" to="." method="Select_Test_Level"]

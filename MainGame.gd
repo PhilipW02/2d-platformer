@@ -16,6 +16,10 @@ func tagged(tagger, player_number):
 	tagger.istagger = false
 	player_number.istagger = true
 
+# To-do List
 # Start-logic fix
 # proper camera
 # physics scaling
+
+# Links
+# https://phantom-camera.dev/follow-modes/group

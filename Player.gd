@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var speed = 250.0
 @export var player_number: int
 @onready var taggerindicator = $taggerindicator
+@onready var character_animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var explode_character = $Explosion
 
 var istagger = false:
 	set(value):
@@ -66,9 +68,27 @@ func _physics_process(_delta: float) -> void:
 	velocity.x = dir * speed
 	
 	if Input.is_action_just_pressed("Left P" + str(player_number)):
-		$Character.flip_h = true
+		$AnimatedSprite2D.flip_h = true
 		
 	elif Input.is_action_just_pressed("Right P" + str(player_number)):
-		$Character.flip_h = false
+		$AnimatedSprite2D.flip_h = false
+	
+	_set_animation(dir)
 	
 	move_and_slide()
+	
+	# Self-Destruct (Debug)
+	if Input.is_action_just_pressed("SD P" + str(player_number)):
+		print("funny")
+		explode_character.play("default")
+		$Explosion/Boom.play()
+	
+func _set_animation(_dir):
+	if velocity.y < 0:
+		character_animation.play("jump")
+	elif velocity.y > 0:
+		character_animation.play("fall")
+	elif velocity.x > 0 && is_on_floor() || velocity.x < 0 && is_on_floor():
+		character_animation.play("run")
+	else:
+		character_animation.play("idle")

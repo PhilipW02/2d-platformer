@@ -1,19 +1,17 @@
 [gd_scene format=4 uid="uid://c4aoebjj8nhtn"]
 
-[ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="1_kdubu"]
-[ext_resource type="Texture2D" uid="uid://ijg88gwcerim" path="res://Assets/Terrain/Terrain (16x16).png" id="1_wtcfe"]
-[ext_resource type="Script" uid="uid://cabppt7f1vwvx" path="res://MainGame.gd" id="1_x0ka3"]
-[ext_resource type="Texture2D" uid="uid://d0cv4nldaqjin" path="res://Assets/Background/Green.png" id="2_hqns4"]
-[ext_resource type="Texture2D" uid="uid://jxu5xk6v80ts" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/layers/middle.png" id="2_x0ka3"]
-[ext_resource type="Script" uid="uid://caisu44af80tn" path="res://Player.gd" id="3_0hol4"]
-[ext_resource type="AudioStream" uid="uid://b6jt0ky4ekvrq" path="res://Assets/Sound/wahoo.wav" id="5_q6r6c"]
-[ext_resource type="Texture2D" uid="uid://bb8gwvjw0uba3" path="res://Assets/Main Characters/Ninja Frog/Jump (32x32).png" id="7_ir8iy"]
-[ext_resource type="Texture2D" uid="uid://br3lqfbo4juax" path="res://Assets/pixel-16x16 (2).png" id="8_x0ka3"]
-[ext_resource type="Script" uid="uid://41rolmn0l4ar" path="res://Camera.gd" id="11_hqns4"]
-[ext_resource type="Texture2D" uid="uid://cl3xe2tnkiuil" path="res://Assets/Main Characters/Virtual Guy/Jump (32x32).png" id="11_x0ka3"]
+[ext_resource type="Script" uid="uid://cabppt7f1vwvx" path="res://MainGame.gd" id="1_anmls"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_h6cxh"]
+[ext_resource type="Texture2D" uid="uid://d0cv4nldaqjin" path="res://Assets/Background/Green.png" id="2_xjxbx"]
+[ext_resource type="Texture2D" uid="uid://jxu5xk6v80ts" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/layers/middle.png" id="3_icy6a"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_naxqp"]
+[ext_resource type="Texture2D" uid="uid://ijg88gwcerim" path="res://Assets/Terrain/Terrain (16x16).png" id="4_1l1lk"]
+[ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="5_mr1v8"]
+[ext_resource type="PackedScene" uid="uid://2pox6f6pg47b" path="res://Player1.tscn" id="6_20tat"]
+[ext_resource type="PackedScene" uid="uid://cnhg7askoovsp" path="res://Player2.tscn" id="7_i8jrj"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtcfe"]
-texture = ExtResource("1_wtcfe")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20tat"]
+texture = ExtResource("4_1l1lk")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -315,118 +313,77 @@ texture = ExtResource("1_wtcfe")
 [sub_resource type="TileSet" id="TileSet_0e48y"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 3
-sources/0 = SubResource("TileSetAtlasSource_wtcfe")
+sources/0 = SubResource("TileSetAtlasSource_20tat")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
-size = Vector2(18, 27)
+[node name="TagGame" type="Node2D" unique_id=1695297248]
+script = ExtResource("1_anmls")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqns4"]
-radius = 16.0
-height = 32.0
+[node name="Stage" type="Node2D" parent="." unique_id=171898227]
 
-[node name="TagGame" type="Node2D" unique_id=819537341]
-script = ExtResource("1_x0ka3")
+[node name="Camera2D" type="Camera2D" parent="Stage" unique_id=1254004132]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(230.1064, 182.12766)
+zoom = Vector2(2.35, 2.35)
+limit_left = -15
+limit_top = 0
+limit_right = 585
+limit_bottom = 320
+editor_draw_limits = true
 
-[node name="Stage" type="Node2D" parent="." unique_id=825542783]
+[node name="PhantomCameraHost" type="Node" parent="Stage/Camera2D" unique_id=1822922635]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_h6cxh")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="TextureRect" type="TextureRect" parent="Stage" unique_id=125519299]
+[node name="PhantomCamera" type="Node2D" parent="Stage" unique_id=1698501438 node_paths=PackedStringArray("follow_targets")]
+top_level = true
+position = Vector2(125, 186)
+script = ExtResource("3_naxqp")
+follow_mode = 3
+follow_targets = [NodePath("../../Player1"), NodePath("../../Player2")]
+zoom = Vector2(2.35, 2.35)
+follow_damping = true
+follow_damping_value = Vector2(0.01, 0.01)
+lookahead_max_value = Vector2(0, 0)
+auto_zoom = true
+auto_zoom_max = 2.35
+auto_zoom_margin = Vector4(50, 100, 50, 0)
+draw_limits = true
+limit_left = -15
+limit_top = 0
+limit_right = 585
+limit_bottom = 320
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="TextureRect" type="TextureRect" parent="Stage" unique_id=579715223]
 offset_left = -2.0
 offset_top = -4.0
 offset_right = 1178.0
 offset_bottom = 648.0
-texture = ExtResource("2_hqns4")
+texture = ExtResource("2_xjxbx")
 stretch_mode = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Middle" type="Sprite2D" parent="Stage" unique_id=1087498242]
+[node name="Middle" type="Sprite2D" parent="Stage" unique_id=1632754526]
 position = Vector2(597, 287.00003)
 scale = Vector2(4.443015, 3.6312501)
-texture = ExtResource("2_x0ka3")
+texture = ExtResource("3_icy6a")
 
-[node name="Layer1" type="TileMapLayer" parent="Stage" unique_id=2031121527]
+[node name="Layer1" type="TileMapLayer" parent="Stage" unique_id=94281319]
 use_parent_material = true
 position = Vector2(0, -5)
 tile_map_data = PackedByteArray("AAAAABIAAAAHAAAAAAAAABMAAAAHAAEAAAAjABIAAAAHAAAAAAAjABMAAAAHAAEAAAAiABIAAAAHAAAAAAAiABMAAAAHAAEAAAAhABIAAAAHAAAAAAAhABMAAAAHAAEAAAAgABIAAAAHAAAAAAAgABMAAAAHAAEAAAAfABIAAAAHAAAAAAAfABMAAAAHAAEAAAAeABIAAAAHAAAAAAAeABMAAAAHAAEAAAAdABIAAAAHAAAAAAAdABMAAAAHAAEAAAAcABIAAAAHAAAAAAAcABMAAAAHAAEAAAAbABIAAAAHAAAAAAAbABMAAAAHAAEAAAAaABIAAAAHAAAAAAAaABMAAAAHAAEAAAAZABIAAAAHAAAAAAAZABMAAAAHAAEAAAAYABIAAAAHAAAAAAAYABMAAAAHAAEAAAAXABIAAAAHAAAAAAAXABMAAAAHAAEAAAAWABIAAAAHAAAAAAAWABMAAAAHAAEAAAAVABIAAAAHAAAAAAAVABMAAAAHAAEAAAAUABIAAAAHAAAAAAAUABMAAAAHAAEAAAATABIAAAAHAAAAAAATABMAAAAHAAEAAAASABIAAAAHAAAAAAASABMAAAAHAAEAAAARABIAAAAHAAAAAAARABMAAAAHAAEAAAAQABIAAAAHAAAAAAAQABMAAAAHAAEAAAAPABIAAAAHAAAAAAAPABMAAAAHAAEAAAAOABIAAAAHAAAAAAAOABMAAAAHAAEAAAANABIAAAAHAAAAAAANABMAAAAHAAEAAAAMABIAAAAHAAAAAAAMABMAAAAHAAEAAAALABIAAAAHAAAAAAALABMAAAAHAAEAAAAKABIAAAAHAAAAAAAKABMAAAAHAAEAAAAJABIAAAAHAAAAAAAJABMAAAAHAAEAAAAIABIAAAAHAAAAAAAIABMAAAAHAAEAAAAHABIAAAAHAAAAAAAHABMAAAAHAAEAAAAGABIAAAAHAAAAAAAGABMAAAAHAAEAAAAFABIAAAAHAAAAAAAFABMAAAAHAAEAAAAEABIAAAAHAAAAAAAEABMAAAAHAAEAAAADABIAAAAHAAAAAAADABMAAAAHAAEAAAACABIAAAAHAAAAAAACABMAAAAHAAEAAAABABIAAAAHAAAAAAABABMAAAAHAAEAAAAAABQAAAAHAAIAAAAjABQAAAAHAAIAAAABABQAAAAHAAIAAAACABQAAAAHAAIAAAADABQAAAAHAAIAAAAEABQAAAAHAAIAAAAFABQAAAAHAAIAAAAGABQAAAAHAAIAAAAHABQAAAAHAAIAAAAIABQAAAAHAAIAAAAJABQAAAAHAAIAAAAiABQAAAAHAAIAAAAhABQAAAAHAAIAAAAgABQAAAAHAAIAAAAfABQAAAAHAAIAAAAeABQAAAAHAAIAAAAdABQAAAAHAAIAAAAcABQAAAAHAAIAAAAbABQAAAAHAAIAAAAaABQAAAAHAAIAAAAZABQAAAAHAAIAAAAYABQAAAAHAAIAAAAXABQAAAAHAAIAAAAWABQAAAAHAAIAAAAVABQAAAAHAAIAAAAUABQAAAAHAAIAAAATABQAAAAHAAIAAAASABQAAAAHAAIAAAARABQAAAAHAAIAAAAQABQAAAAHAAIAAAAPABQAAAAHAAIAAAAOABQAAAAHAAIAAAANABQAAAAHAAIAAAAMABQAAAAHAAIAAAALABQAAAAHAAIAAAAKABQAAAAHAAIAAAADAA4AAAARAAEAAAAEAA4AAAASAAEAAAAFAA4AAAATAAEAAAAJAAsAAAARAAEAAAAKAAsAAAASAAEAAAALAAsAAAATAAEAAAAQAA4AAAARAAEAAAARAA4AAAASAAEAAAASAA4AAAASAAEAAAAZAAsAAAARAAEAAAAaAAsAAAASAAEAAAAbAAsAAAATAAEAAAD//xIAAAAJAAEAAAD//xEAAAAIAAEAAAD//xAAAAAIAAEAAAD//w8AAAAIAAEAAAD//w4AAAAIAAEAAAD//w0AAAAIAAEAAAD//wwAAAAIAAEAAAD//wsAAAAIAAEAAAD//woAAAAIAAEAAAD//wkAAAAIAAEAAAD//wgAAAAIAAEAAAD//wcAAAAIAAEAAAD//wYAAAAIAAEAAAD//wUAAAAIAAEAAAD//wQAAAAIAAEAAAD//wMAAAAIAAEAAAD//wIAAAAIAAEAAAD//wEAAAAIAAEAAAD//wAAAAAIAAEAAAD//xMAAAAHAAEAAAD//xQAAAAHAAIAAAAkABIAAAAKAAEAAAAkABMAAAAHAAEAAAAkABQAAAAHAAIAAAAkABEAAAAGAAEAAAAkABAAAAAGAAEAAAAkAA8AAAAGAAEAAAAkAA4AAAAGAAEAAAAkAA0AAAAGAAEAAAAkAAAAAAAGAAEAAAAkAAEAAAAGAAEAAAAkAAIAAAAGAAEAAAAkAAMAAAAGAAEAAAAkAAQAAAAGAAEAAAAkAAUAAAAGAAEAAAAkAAYAAAAGAAEAAAAkAAcAAAAGAAEAAAAkAAgAAAAGAAEAAAAkAAkAAAAGAAEAAAAkAAoAAAAGAAEAAAAkAAsAAAAGAAEAAAAkAAwAAAAGAAEAAAATAA4AAAASAAEAAAAUAA4AAAATAAEAAAAfAA4AAAARAAEAAAAgAA4AAAASAAEAAAAhAA4AAAATAAEAAAAOAAcAAAAMAAAAAAAPAAcAAAAOAAAAAAAVAAcAAAAMAAAAAAAWAAcAAAAOAAAAAAASAAMAAAAMAAEAAAA=")
 tile_set = SubResource("TileSet_0e48y")
 
-[node name="BGM" type="AudioStreamPlayer" parent="Stage" unique_id=1922001393]
-stream = ExtResource("1_kdubu")
+[node name="BGM" type="AudioStreamPlayer" parent="Stage" unique_id=671933441]
+stream = ExtResource("5_mr1v8")
 volume_db = -30.0
 autoplay = true
 
-[node name="Player1" type="CharacterBody2D" parent="." unique_id=1626084060 groups=["players"]]
-position = Vector2(134, 46)
-collision_layer = 2
-script = ExtResource("3_0hol4")
-player_number = 1
+[node name="Player1" parent="." unique_id=393482877 instance=ExtResource("6_20tat")]
+position = Vector2(182, 269)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1" unique_id=788279527]
-position = Vector2(-88, 223.5)
-shape = SubResource("RectangleShape2D_epypp")
-
-[node name="Character" type="Sprite2D" parent="Player1" unique_id=1525925763]
-texture_filter = 1
-position = Vector2(-87.999985, 223.00003)
-scale = Vector2(0.758, 1)
-texture = ExtResource("7_ir8iy")
-
-[node name="JumpSound" type="AudioStreamPlayer2D" parent="Player1" unique_id=390660988]
-position = Vector2(58, -5)
-stream = ExtResource("5_q6r6c")
-
-[node name="TouchBox" type="Area2D" parent="Player1" unique_id=102075905]
-position = Vector2(-52, 203)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1/TouchBox" unique_id=849346900]
-position = Vector2(-36, 20)
-shape = SubResource("CapsuleShape2D_hqns4")
-
-[node name="taggerindicator" type="Sprite2D" parent="Player1" unique_id=1077362241]
-texture_filter = 1
-position = Vector2(-88, 202)
-texture = ExtResource("8_x0ka3")
-
-[node name="Player2" type="CharacterBody2D" parent="." unique_id=1224170065 groups=["players"]]
-collision_layer = 2
-script = ExtResource("3_0hol4")
-player_number = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=790191732]
-position = Vector2(207, 213)
-shape = SubResource("RectangleShape2D_epypp")
-
-[node name="Character" type="Sprite2D" parent="Player2" unique_id=1312735429]
-texture_filter = 1
-position = Vector2(206.99998, 213.00003)
-scale = Vector2(0.758, 1)
-texture = ExtResource("11_x0ka3")
-
-[node name="JumpSound" type="AudioStreamPlayer2D" parent="Player2" unique_id=1607921493]
-position = Vector2(7, -9)
-stream = ExtResource("5_q6r6c")
-
-[node name="TouchBox" type="Area2D" parent="Player2" unique_id=1775423262]
-position = Vector2(243, 193)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/TouchBox" unique_id=1058232024]
-position = Vector2(-36, 20)
-shape = SubResource("CapsuleShape2D_hqns4")
-
-[node name="taggerindicator" type="Sprite2D" parent="Player2" unique_id=1687642658]
-texture_filter = 1
-position = Vector2(207, 192)
-texture = ExtResource("8_x0ka3")
-
-[node name="GameCam" type="Camera2D" parent="." unique_id=156851660]
-position = Vector2(-6, -3)
-anchor_mode = 0
-zoom = Vector2(1.95, 1.95)
-script = ExtResource("11_hqns4")
-
-[connection signal="body_entered" from="Player1/TouchBox" to="Player1" method="_on_touch_box_body_entered"]
-[connection signal="body_exited" from="Player1/TouchBox" to="Player1" method="_on_touch_box_body_exited"]
-[connection signal="body_entered" from="Player2/TouchBox" to="Player2" method="_on_touch_box_body_entered"]
-[connection signal="body_exited" from="Player2/TouchBox" to="Player2" method="_on_touch_box_body_exited"]
+[node name="Player2" parent="." unique_id=240697957 instance=ExtResource("7_i8jrj")]
+position = Vector2(68, 203)
