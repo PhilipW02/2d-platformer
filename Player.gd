@@ -62,6 +62,10 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Jump P" + str(player_number)) and is_on_floor():
 		velocity.y = -jump_impulse
 		$JumpSound.play()
+		
+	##JumpBuffer
+	if Input.is_action_just_pressed("Jump P" + str(player_number)) and not is_on_floor():
+		print ("K")
 
 	#Horizontal movement
 	var dir = Input.get_axis("Left P" + str(player_number), "Right P" + str(player_number))

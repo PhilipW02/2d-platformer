@@ -350,6 +350,7 @@ stream = ExtResource("7_t46hy")
 volume_db = -10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651105660]
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_rjqkl")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="." unique_id=1615120038]
@@ -361,11 +362,12 @@ collision_mask = 2
 collision_priority = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchBox" unique_id=1730997213]
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_hqns4")
 
 [node name="taggerindicator" type="Sprite2D" parent="." unique_id=864457718]
 texture_filter = 1
-position = Vector2(0, -20)
+position = Vector2(0, -17)
 texture = ExtResource("7_nc2sl")
 
 [connection signal="body_entered" from="TouchBox" to="." method="_on_touch_box_body_entered"]

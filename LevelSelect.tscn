@@ -17,7 +17,7 @@ script = ExtResource("1_q3t17")
 layout_mode = 0
 offset_right = 1154.0
 offset_bottom = 646.0
-color = Color(0.5411765, 1, 1, 1)
+color = Color(0.5411765, 1, 0.5294118, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=123872360]
 modulate = Color(1, 0.14509805, 1, 1)
