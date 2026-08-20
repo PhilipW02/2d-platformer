@@ -6,9 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://jxu5xk6v80ts" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/layers/middle.png" id="3_icy6a"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_naxqp"]
 [ext_resource type="Texture2D" uid="uid://ijg88gwcerim" path="res://Assets/Terrain/Terrain (16x16).png" id="4_1l1lk"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_i1usn"]
 [ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="5_mr1v8"]
 [ext_resource type="PackedScene" uid="uid://2pox6f6pg47b" path="res://Player1.tscn" id="6_20tat"]
 [ext_resource type="PackedScene" uid="uid://cnhg7askoovsp" path="res://Player2.tscn" id="7_i8jrj"]
+
+[sub_resource type="Resource" id="Resource_h6cxh"]
+script = ExtResource("4_i1usn")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20tat"]
 texture = ExtResource("4_1l1lk")
@@ -337,6 +341,16 @@ process_physics_priority = 300
 script = ExtResource("2_h6cxh")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Stage/Camera2D" unique_id=2048185578]
+offset_left = -38.1064
+offset_top = -138.12766
+offset_right = 1.8936005
+offset_bottom = -98.127655
+text = "0:69"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
 [node name="PhantomCamera" type="Node2D" parent="Stage" unique_id=1698501438 node_paths=PackedStringArray("follow_targets")]
 top_level = true
 position = Vector2(125, 186)
@@ -344,6 +358,7 @@ script = ExtResource("3_naxqp")
 follow_mode = 3
 follow_targets = [NodePath("../../Player1"), NodePath("../../Player2")]
 zoom = Vector2(2.35, 2.35)
+tween_resource = SubResource("Resource_h6cxh")
 follow_damping = true
 follow_damping_value = Vector2(0.01, 0.01)
 lookahead_max_value = Vector2(0, 0)

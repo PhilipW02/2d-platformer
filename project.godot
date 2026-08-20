@@ -74,6 +74,10 @@ players=""
 ]
 }
 
+[phantom_camera]
+
+tips/show_jitter_tips=false
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -370,5 +370,14 @@ texture_filter = 1
 position = Vector2(0, -17)
 texture = ExtResource("7_3ydit")
 
+[node name="AirTimer" type="Timer" parent="." unique_id=2105078015]
+wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=462451418]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="body_entered" from="TouchBox" to="." method="_on_touch_box_body_entered"]
 [connection signal="body_exited" from="TouchBox" to="." method="_on_touch_box_body_exited"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

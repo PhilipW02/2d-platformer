@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var taggerindicator = $taggerindicator
 @onready var character_animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var explode_character = $Explosion
+@onready var AirTimer = $AirTimer
 
 var istagger = false:
 	set(value):
@@ -14,6 +15,7 @@ var istagger = false:
 		if taggerindicator:
 			taggerindicator.visible = value
 var can_tag = true
+var can_jump = true
 
 # Tagger Interaction	
 #func tag(player: CharacterBody2D):
@@ -42,31 +44,45 @@ func _on_touch_box_body_exited(body: Node2D) -> void:
 		if istagger:
 			print("Tagger ready to tag again.")
 			can_tag = true
-		
+			
+func _on_coyote_timer_timeout():
+	can_jump = false
+	
 # Movement	
-func _physics_process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:		
+	if can_jump == false and is_on_floor():
+		can_jump = true
+		
 	if istagger == false:
 		taggerindicator.visible = false
-		speed = 150.0
+		speed = 200.0
 		jump_impulse = 400.0
 	if istagger == true:
 		taggerindicator.visible = true
-		speed = 157.5
+		speed = 210.0
 		jump_impulse = 420.0
 
 	#Gravity
+	
 	if not is_on_floor():
 		velocity.y += gravity * _delta
 
+	var jump_buffer = AirTimer.time_left > 0 and is_on_floor()
+	
 	#Jump
-	if Input.is_action_just_pressed("Jump P" + str(player_number)) and is_on_floor():
+	if (Input.is_action_just_pressed("Jump P" + str(player_number))) and can_jump or jump_buffer:
 		velocity.y = -jump_impulse
 		$JumpSound.play()
-		
-	##JumpBuffer
+		can_jump = false
+	
+	#JumpBuffer
 	if Input.is_action_just_pressed("Jump P" + str(player_number)) and not is_on_floor():
-		print ("K")
-
+		AirTimer.start()
+		
+	#CoyoteTimer
+	if (is_on_floor() == false) and can_jump and $CoyoteTimer.is_stopped():
+		$CoyoteTimer.start()
+		
 	#Horizontal movement
 	var dir = Input.get_axis("Left P" + str(player_number), "Right P" + str(player_number))
 	velocity.x = dir * speed
@@ -80,7 +96,7 @@ func _physics_process(_delta: float) -> void:
 	_set_animation(dir)
 	
 	move_and_slide()
-	
+		
 	# Self-Destruct (Debug)
 	if Input.is_action_just_pressed("SD P" + str(player_number)):
 		print("funny")
