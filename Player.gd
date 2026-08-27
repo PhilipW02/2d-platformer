@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-@export var jump_impulse = 500.0
-@export var gravity = 1000.0
-@export var speed = 250.0
+@export var jump_impulse = 400.0
+@export var gravity = 980.665
+@export var speed = 240.0
 @export var player_number: int
 @onready var taggerindicator = $taggerindicator
 @onready var character_animation: AnimatedSprite2D = $AnimatedSprite2D
@@ -55,12 +55,8 @@ func _physics_process(_delta: float) -> void:
 		
 	if istagger == false:
 		taggerindicator.visible = false
-		speed = 200.0
-		jump_impulse = 400.0
 	if istagger == true:
 		taggerindicator.visible = true
-		speed = 210.0
-		jump_impulse = 420.0
 
 	#Gravity
 	

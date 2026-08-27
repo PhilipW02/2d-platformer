@@ -20,6 +20,8 @@ func tagged(tagger, player_number):
 # Start-logic fix
 # proper camera
 # physics scaling (Coyote-time + Jump-buffer)
+# working Timer
+# make timer transparent-ish when player is close
 
 # Links
 # https://phantom-camera.dev/follow-modes/group
