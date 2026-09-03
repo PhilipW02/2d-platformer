@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cabppt7f1vwvx" path="res://MainGame.gd" id="1_anmls"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_h6cxh"]
 [ext_resource type="Texture2D" uid="uid://d0cv4nldaqjin" path="res://Assets/Background/Green.png" id="2_xjxbx"]
+[ext_resource type="Script" uid="uid://d3sfc7734dme8" path="res://TestStage.gd" id="2_xvw0e"]
 [ext_resource type="Texture2D" uid="uid://cpxkv1vu7e65p" path="res://Assets/timer-0001.png" id="3_h6cxh"]
 [ext_resource type="Texture2D" uid="uid://jxu5xk6v80ts" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/layers/middle.png" id="3_icy6a"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_naxqp"]
@@ -11,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="5_mr1v8"]
 [ext_resource type="PackedScene" uid="uid://2pox6f6pg47b" path="res://Player1.tscn" id="6_20tat"]
 [ext_resource type="PackedScene" uid="uid://cnhg7askoovsp" path="res://Player2.tscn" id="7_i8jrj"]
+[ext_resource type="Texture2D" uid="uid://dy2ihtvcs06q6" path="res://Assets/TeleporterPH.png" id="10_naxqp"]
 
 [sub_resource type="Resource" id="Resource_h6cxh"]
 script = ExtResource("4_i1usn")
@@ -324,6 +326,7 @@ sources/0 = SubResource("TileSetAtlasSource_20tat")
 script = ExtResource("1_anmls")
 
 [node name="Stage" type="Node2D" parent="." unique_id=171898227]
+script = ExtResource("2_xvw0e")
 
 [node name="Camera2D" type="Camera2D" parent="Stage" unique_id=1254004132]
 physics_interpolation_mode = 1
@@ -395,8 +398,34 @@ stream = ExtResource("5_mr1v8")
 volume_db = -30.0
 autoplay = true
 
+[node name="TeleporterPh" type="Sprite2D" parent="Stage" unique_id=2142658361]
+position = Vector2(518, 252.99998)
+scale = Vector2(0.085, 0.1)
+texture = ExtResource("10_naxqp")
+
+[node name="TeleporterPh2" type="Sprite2D" parent="Stage" unique_id=566168669]
+position = Vector2(296.0001, 17.00003)
+scale = Vector2(0.07, 0.1)
+texture = ExtResource("10_naxqp")
+
+[node name="TeleporterPh3" type="Sprite2D" parent="Stage" unique_id=1964981014]
+position = Vector2(65.000015, 252.99998)
+scale = Vector2(0.07, 0.1)
+texture = ExtResource("10_naxqp")
+
+[node name="TeleporterPh4" type="Sprite2D" parent="Stage" unique_id=52485813]
+position = Vector2(295.99997, 192.99998)
+scale = Vector2(0.07, 0.1)
+texture = ExtResource("10_naxqp")
+
+[node name="TPTimer" type="Timer" parent="Stage" unique_id=570787276]
+wait_time = 5.0
+autostart = true
+
 [node name="Player1" parent="." unique_id=393482877 instance=ExtResource("6_20tat")]
 position = Vector2(182, 269)
 
 [node name="Player2" parent="." unique_id=240697957 instance=ExtResource("7_i8jrj")]
 position = Vector2(68, 201)
+
+[connection signal="timeout" from="Stage/TPTimer" to="Stage" method="_on_teleporter_timer_timeout"]
