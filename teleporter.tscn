@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cep47eiph7m3j"]
+
+[ext_resource type="Texture2D" uid="uid://dy2ihtvcs06q6" path="res://Assets/TeleporterPH.png" id="1_eumkw"]
+[ext_resource type="Script" uid="uid://d3lh18wxqamco" path="res://teleporter.gd" id="2_tuehi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tuehi"]
+radius = 140.00003
+height = 440.00003
+
+[node name="TeleporterPh" type="Sprite2D" unique_id=1471715467 groups=["teleporters"]]
+position = Vector2(1.9073486e-06, 3.8146973e-06)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_eumkw")
+script = ExtResource("2_tuehi")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1422180949]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=499858153]
+position = Vector2(-2.1457668e-05, -9.536743e-06)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("CapsuleShape2D_tuehi")
+
+[connection signal="body_entered" from="Area2D" to="." method="entered_teleporter"]

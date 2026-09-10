@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cabppt7f1vwvx" path="res://MainGame.gd" id="1_anmls"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_h6cxh"]
 [ext_resource type="Texture2D" uid="uid://d0cv4nldaqjin" path="res://Assets/Background/Green.png" id="2_xjxbx"]
-[ext_resource type="Script" uid="uid://d3sfc7734dme8" path="res://TestStage.gd" id="2_xvw0e"]
 [ext_resource type="Texture2D" uid="uid://cpxkv1vu7e65p" path="res://Assets/timer-0001.png" id="3_h6cxh"]
 [ext_resource type="Texture2D" uid="uid://jxu5xk6v80ts" path="res://Assets/Background/parallax_forest_pack web/parallax_forest_pack web/v2/layers/middle.png" id="3_icy6a"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_naxqp"]
@@ -12,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="5_mr1v8"]
 [ext_resource type="PackedScene" uid="uid://2pox6f6pg47b" path="res://Player1.tscn" id="6_20tat"]
 [ext_resource type="PackedScene" uid="uid://cnhg7askoovsp" path="res://Player2.tscn" id="7_i8jrj"]
-[ext_resource type="Texture2D" uid="uid://dy2ihtvcs06q6" path="res://Assets/TeleporterPH.png" id="10_naxqp"]
+[ext_resource type="PackedScene" uid="uid://cep47eiph7m3j" path="res://teleporter.tscn" id="11_8cg1d"]
 
 [sub_resource type="Resource" id="Resource_h6cxh"]
 script = ExtResource("4_i1usn")
@@ -322,11 +321,44 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_20tat")
 
+[sub_resource type="GDScript" id="GDScript_xvw0e"]
+script/source = "extends Node2D
+
+## Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	for child in get_children():
+		child.visible = true
+ 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed(\"LL\"):
+		teleporter_disappear()
+#
+func teleporter_appear():
+	# TPX = Teleporter appear points
+	# teleporterA/B = which 2 teleporters that appear
+	var teleporterRNG = RandomNumberGenerator.new()
+	var teleporters = get_children()
+	var teleporterA
+	var index = teleporterRNG.randf_range(0, round(len(teleporters)))
+	teleporterA = teleporters[index]
+	teleporters.remove_at(index)
+	teleporterRNG = RandomNumberGenerator.new()
+	var teleporterB
+	index = teleporterRNG.randf_range(0, round(len(teleporters)))
+	teleporterB = teleporters[index]
+	print(teleporterA, teleporterB)
+	teleporterA.visible = true
+	teleporterB.visible = true
+#
+func teleporter_disappear() -> void:
+	pass
+	#TP1.visible = false
+"
+
 [node name="TagGame" type="Node2D" unique_id=1695297248]
 script = ExtResource("1_anmls")
 
 [node name="Stage" type="Node2D" parent="." unique_id=171898227]
-script = ExtResource("2_xvw0e")
 
 [node name="Camera2D" type="Camera2D" parent="Stage" unique_id=1254004132]
 physics_interpolation_mode = 1
@@ -357,7 +389,7 @@ top_level = true
 position = Vector2(125, 185)
 script = ExtResource("3_naxqp")
 follow_mode = 3
-follow_targets = [NodePath("../../Player1"), NodePath("../../Player2")]
+follow_targets = [NodePath("../Player1"), NodePath("../Player2")]
 zoom = Vector2(2.35, 2.35)
 tween_resource = SubResource("Resource_h6cxh")
 follow_damping = true
@@ -393,39 +425,33 @@ position = Vector2(0, -5)
 tile_map_data = PackedByteArray("AAAAABIAAAAHAAAAAAAAABMAAAAHAAEAAAAjABIAAAAHAAAAAAAjABMAAAAHAAEAAAAiABIAAAAHAAAAAAAiABMAAAAHAAEAAAAhABIAAAAHAAAAAAAhABMAAAAHAAEAAAAgABIAAAAHAAAAAAAgABMAAAAHAAEAAAAfABIAAAAHAAAAAAAfABMAAAAHAAEAAAAeABIAAAAHAAAAAAAeABMAAAAHAAEAAAAdABIAAAAHAAAAAAAdABMAAAAHAAEAAAAcABIAAAAHAAAAAAAcABMAAAAHAAEAAAAbABIAAAAHAAAAAAAbABMAAAAHAAEAAAAaABIAAAAHAAAAAAAaABMAAAAHAAEAAAAZABIAAAAHAAAAAAAZABMAAAAHAAEAAAAYABIAAAAHAAAAAAAYABMAAAAHAAEAAAAXABIAAAAHAAAAAAAXABMAAAAHAAEAAAAWABIAAAAHAAAAAAAWABMAAAAHAAEAAAAVABIAAAAHAAAAAAAVABMAAAAHAAEAAAAUABIAAAAHAAAAAAAUABMAAAAHAAEAAAATABIAAAAHAAAAAAATABMAAAAHAAEAAAASABIAAAAHAAAAAAASABMAAAAHAAEAAAARABIAAAAHAAAAAAARABMAAAAHAAEAAAAQABIAAAAHAAAAAAAQABMAAAAHAAEAAAAPABIAAAAHAAAAAAAPABMAAAAHAAEAAAAOABIAAAAHAAAAAAAOABMAAAAHAAEAAAANABIAAAAHAAAAAAANABMAAAAHAAEAAAAMABIAAAAHAAAAAAAMABMAAAAHAAEAAAALABIAAAAHAAAAAAALABMAAAAHAAEAAAAKABIAAAAHAAAAAAAKABMAAAAHAAEAAAAJABIAAAAHAAAAAAAJABMAAAAHAAEAAAAIABIAAAAHAAAAAAAIABMAAAAHAAEAAAAHABIAAAAHAAAAAAAHABMAAAAHAAEAAAAGABIAAAAHAAAAAAAGABMAAAAHAAEAAAAFABIAAAAHAAAAAAAFABMAAAAHAAEAAAAEABIAAAAHAAAAAAAEABMAAAAHAAEAAAADABIAAAAHAAAAAAADABMAAAAHAAEAAAACABIAAAAHAAAAAAACABMAAAAHAAEAAAABABIAAAAHAAAAAAABABMAAAAHAAEAAAAAABQAAAAHAAIAAAAjABQAAAAHAAIAAAABABQAAAAHAAIAAAACABQAAAAHAAIAAAADABQAAAAHAAIAAAAEABQAAAAHAAIAAAAFABQAAAAHAAIAAAAGABQAAAAHAAIAAAAHABQAAAAHAAIAAAAIABQAAAAHAAIAAAAJABQAAAAHAAIAAAAiABQAAAAHAAIAAAAhABQAAAAHAAIAAAAgABQAAAAHAAIAAAAfABQAAAAHAAIAAAAeABQAAAAHAAIAAAAdABQAAAAHAAIAAAAcABQAAAAHAAIAAAAbABQAAAAHAAIAAAAaABQAAAAHAAIAAAAZABQAAAAHAAIAAAAYABQAAAAHAAIAAAAXABQAAAAHAAIAAAAWABQAAAAHAAIAAAAVABQAAAAHAAIAAAAUABQAAAAHAAIAAAATABQAAAAHAAIAAAASABQAAAAHAAIAAAARABQAAAAHAAIAAAAQABQAAAAHAAIAAAAPABQAAAAHAAIAAAAOABQAAAAHAAIAAAANABQAAAAHAAIAAAAMABQAAAAHAAIAAAALABQAAAAHAAIAAAAKABQAAAAHAAIAAAADAA4AAAARAAEAAAAEAA4AAAASAAEAAAAFAA4AAAATAAEAAAAJAAsAAAARAAEAAAAKAAsAAAASAAEAAAALAAsAAAATAAEAAAAQAA4AAAARAAEAAAARAA4AAAASAAEAAAASAA4AAAAMAAEAAAAZAAsAAAARAAEAAAAaAAsAAAASAAEAAAAbAAsAAAATAAEAAAD//xIAAAAJAAEAAAD//xEAAAAIAAEAAAD//xAAAAAIAAEAAAD//w8AAAAIAAEAAAD//w4AAAAIAAEAAAD//w0AAAAIAAEAAAD//wwAAAAIAAEAAAD//wsAAAAIAAEAAAD//woAAAAIAAEAAAD//wkAAAAIAAEAAAD//wgAAAAIAAEAAAD//wcAAAAIAAEAAAD//wYAAAAIAAEAAAD//wUAAAAIAAEAAAD//wQAAAAIAAEAAAD//wMAAAAIAAEAAAD//wIAAAAIAAEAAAD//wEAAAAIAAEAAAD//wAAAAAIAAEAAAD//xMAAAAHAAEAAAD//xQAAAAHAAIAAAAkABIAAAAKAAEAAAAkABMAAAAHAAEAAAAkABQAAAAHAAIAAAAkABEAAAAGAAEAAAAkABAAAAAGAAEAAAAkAA8AAAAGAAEAAAAkAA4AAAAGAAEAAAAkAA0AAAAGAAEAAAAkAAAAAAAGAAEAAAAkAAEAAAAGAAEAAAAkAAIAAAAGAAEAAAAkAAMAAAAGAAEAAAAkAAQAAAAGAAEAAAAkAAUAAAAGAAEAAAAkAAYAAAAGAAEAAAAkAAcAAAAGAAEAAAAkAAgAAAAGAAEAAAAkAAkAAAAGAAEAAAAkAAoAAAAGAAEAAAAkAAsAAAAGAAEAAAAkAAwAAAAGAAEAAAATAA4AAAASAAEAAAAUAA4AAAATAAEAAAAfAA4AAAARAAEAAAAgAA4AAAASAAEAAAAhAA4AAAATAAEAAAAOAAcAAAAMAAAAAAAPAAcAAAAOAAAAAAAVAAcAAAAMAAAAAAAWAAcAAAAOAAAAAAASAAMAAAAMAAEAAAASAA8AAAAMAAEAAAA=")
 tile_set = SubResource("TileSet_0e48y")
 
+[node name="TeleportManager" type="Node2D" parent="Stage" unique_id=319793529]
+position = Vector2(0, -5)
+script = SubResource("GDScript_xvw0e")
+
+[node name="TeleporterPh" parent="Stage/TeleportManager" unique_id=1471715467 instance=ExtResource("11_8cg1d")]
+unique_name_in_owner = true
+position = Vector2(70.000015, 257)
+
+[node name="TeleporterPh2" parent="Stage/TeleportManager" unique_id=828811631 instance=ExtResource("11_8cg1d")]
+unique_name_in_owner = true
+position = Vector2(520, 258)
+
+[node name="TeleporterPh3" parent="Stage/TeleportManager" unique_id=737054037 instance=ExtResource("11_8cg1d")]
+position = Vector2(239.00003, 86.000015)
+
+[node name="TeleporterPh4" parent="Stage/TeleportManager" unique_id=1049193478 instance=ExtResource("11_8cg1d")]
+position = Vector2(350.99997, 85)
+
+[node name="Player1" parent="Stage" unique_id=393482877 instance=ExtResource("6_20tat")]
+unique_name_in_owner = true
+position = Vector2(182, 269)
+
+[node name="Player2" parent="Stage" unique_id=240697957 instance=ExtResource("7_i8jrj")]
+unique_name_in_owner = true
+position = Vector2(68, 201)
+
 [node name="BGM" type="AudioStreamPlayer" parent="Stage" unique_id=671933441]
 stream = ExtResource("5_mr1v8")
 volume_db = -30.0
 autoplay = true
-
-[node name="TeleporterPh" type="Sprite2D" parent="Stage" unique_id=2142658361]
-position = Vector2(518, 252.99998)
-scale = Vector2(0.085, 0.1)
-texture = ExtResource("10_naxqp")
-
-[node name="TeleporterPh2" type="Sprite2D" parent="Stage" unique_id=566168669]
-position = Vector2(296.0001, 17.00003)
-scale = Vector2(0.07, 0.1)
-texture = ExtResource("10_naxqp")
-
-[node name="TeleporterPh3" type="Sprite2D" parent="Stage" unique_id=1964981014]
-position = Vector2(65.000015, 252.99998)
-scale = Vector2(0.07, 0.1)
-texture = ExtResource("10_naxqp")
-
-[node name="TeleporterPh4" type="Sprite2D" parent="Stage" unique_id=52485813]
-position = Vector2(295.99997, 192.99998)
-scale = Vector2(0.07, 0.1)
-texture = ExtResource("10_naxqp")
-
-[node name="TPTimer" type="Timer" parent="Stage" unique_id=570787276]
-wait_time = 5.0
-autostart = true
-
-[node name="Player1" parent="." unique_id=393482877 instance=ExtResource("6_20tat")]
-position = Vector2(182, 269)
-
-[node name="Player2" parent="." unique_id=240697957 instance=ExtResource("7_i8jrj")]
-position = Vector2(68, 201)
-
-[connection signal="timeout" from="Stage/TPTimer" to="Stage" method="_on_teleporter_timer_timeout"]

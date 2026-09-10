@@ -1,6 +1,6 @@
 extends Node2D
-@onready var _player1 = $Player1
-@onready var _player2 = $Player2
+@onready var _player1 = $Stage/Player1
+@onready var _player2 = $Stage/Player2
 
 func _ready() -> void:
 	choose_tagger()
@@ -17,10 +17,8 @@ func tagged(tagger, player_number):
 	player_number.istagger = true
 
 # To-do List
-# Start-logic fix
-# proper camera
-# physics scaling (Coyote-time + Jump-buffer)
 # working Timer
+# Teleport appear timer (random?)
 # make timer transparent-ish when player is close
 
 # Links
