@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dbhhsjtc42bgc" path="res://Assets/Sound/GreenHillZoneMIDI.wav" id="5_mr1v8"]
 [ext_resource type="PackedScene" uid="uid://2pox6f6pg47b" path="res://Player1.tscn" id="6_20tat"]
 [ext_resource type="PackedScene" uid="uid://cnhg7askoovsp" path="res://Player2.tscn" id="7_i8jrj"]
+[ext_resource type="Script" uid="uid://dvxomuekbn350" path="res://teleport_manager.gd" id="9_xvw0e"]
 [ext_resource type="PackedScene" uid="uid://cep47eiph7m3j" path="res://teleporter.tscn" id="11_8cg1d"]
 
 [sub_resource type="Resource" id="Resource_h6cxh"]
@@ -321,54 +322,6 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_20tat")
 
-[sub_resource type="GDScript" id="GDScript_xvw0e"]
-script/source = "extends Node2D
-
-## Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	for child in get_children():
-		child.visible = false
-	teleporter_disappear()
-	print(find_children(\"CollisionShape2D\"))
- 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed(\"LL\"):
-		teleporter_disappear()
-
-func timer():
-	await get_tree().create_timer(randi_range(5, 15)).timeout
-	teleporter_appear()
-
-func teleporter_appear():
-	# TPX = Teleporter appear points
-	# teleporterA/B = which 2 teleporters that appear
-	var teleporterRNG = RandomNumberGenerator.new()
-	var teleporters = get_children()
-	var teleporterA
-	var index = teleporterRNG.randf_range(0, round(len(teleporters)))
-	teleporterA = teleporters[index]
-	teleporters.remove_at(index)
-	teleporterRNG = RandomNumberGenerator.new()
-	var teleporterB
-	index = teleporterRNG.randf_range(0, round(len(teleporters)))
-	teleporterB = teleporters[index]
-	teleporterA.visible = true
-	teleporterB.visible = true
-	teleporterA.get_children()[0].get_children()[0].disabled = false
-	teleporterB.get_children()[0].get_children()[0].disabled = false
-	teleporterA.add_to_group(\"telpos\")
-	teleporterB.add_to_group(\"telpos\")
-	
-
-func teleporter_disappear() -> void:
-	for child in get_children():
-		child.visible = false
-		child.get_children()[0].get_children()[0].disabled = true
-		if child.is_in_group(\"telpos\"):
-			child.remove_from_group(\"telpos\")
-	timer()
-"
-
 [node name="TagGame" type="Node2D" unique_id=1695297248]
 script = ExtResource("1_anmls")
 
@@ -441,7 +394,7 @@ tile_set = SubResource("TileSet_0e48y")
 
 [node name="TeleportManager" type="Node2D" parent="Stage" unique_id=319793529]
 position = Vector2(0, -5)
-script = SubResource("GDScript_xvw0e")
+script = ExtResource("9_xvw0e")
 
 [node name="TP" parent="Stage/TeleportManager" unique_id=1471715467 instance=ExtResource("11_8cg1d")]
 position = Vector2(15.000001, 207)
