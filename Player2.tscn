@@ -326,11 +326,11 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rjqkl"]
-height = 26.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t46hy"]
+size = Vector2(20, 26)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqns4"]
-height = 26.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5twf5"]
+size = Vector2(20, 26)
 
 [node name="Player2" type="CharacterBody2D" unique_id=240697957 groups=["players"]]
 collision_layer = 2
@@ -351,7 +351,7 @@ volume_db = -10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651105660]
 position = Vector2(0, 3)
-shape = SubResource("CapsuleShape2D_rjqkl")
+shape = SubResource("RectangleShape2D_t46hy")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="." unique_id=1615120038]
 stream = ExtResource("6_yn16u")
@@ -363,7 +363,7 @@ collision_priority = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchBox" unique_id=1730997213]
 position = Vector2(0, 3)
-shape = SubResource("CapsuleShape2D_hqns4")
+shape = SubResource("RectangleShape2D_5twf5")
 
 [node name="taggerindicator" type="Sprite2D" parent="." unique_id=864457718]
 texture_filter = 1
