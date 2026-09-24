@@ -8,13 +8,14 @@ extends CharacterBody2D
 @onready var character_animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var explode_character = $Explosion
 @onready var AirTimer = $AirTimer
+@onready var hit = $HitSound
 
 var istagger = false:
 	set(value):
 		istagger = value
 		if taggerindicator:
 			taggerindicator.visible = value
-var can_tag = true
+@export var can_tag = false
 var can_jump = true
 
 # Tagger Interaction	
@@ -25,13 +26,15 @@ var can_jump = true
 func get_tagged() -> void:
 	istagger = true
 	can_tag = false
+	hit.play()
 
+## Tagger Logic
 func _on_touch_box_body_entered(body: Node2D) -> void:
 	if body == self:
 		return
 		
 	if body.is_in_group("players"):
-		print('im player', player_number, ', istagger = ', istagger)	
+		print('im player', player_number, ', istagger = ', istagger, ', can_tag = ', can_tag)	
 		if istagger && can_tag:
 			can_tag = false
 			istagger = false
@@ -44,11 +47,11 @@ func _on_touch_box_body_exited(body: Node2D) -> void:
 		if istagger:
 			print("Tagger ready to tag again.")
 			can_tag = true
-			
+
+# Movement	
 func _on_coyote_timer_timeout():
 	can_jump = false
 	
-# Movement	
 func _physics_process(_delta: float) -> void:		
 	if can_jump == false and is_on_floor():
 		can_jump = true
@@ -59,7 +62,6 @@ func _physics_process(_delta: float) -> void:
 		taggerindicator.visible = true
 
 	#Gravity
-	
 	if not is_on_floor():
 		velocity.y += gravity * _delta
 
@@ -89,13 +91,14 @@ func _physics_process(_delta: float) -> void:
 	elif Input.is_action_just_pressed("Right P" + str(player_number)):
 		$AnimatedSprite2D.flip_h = false
 	
-	_set_animation(dir)
+	# Hit Ceiling
+	if is_on_ceiling():
+		$BonkSound.play()
 	
+	_set_animation(dir)
 	move_and_slide()
-		
 	# Self-Destruct (Debug)
 	if Input.is_action_just_pressed("SD P" + str(player_number)):
-		print("funny")
 		explode_character.play("default")
 		$Explosion/Boom.play()
 	

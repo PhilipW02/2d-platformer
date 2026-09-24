@@ -9,8 +9,10 @@ func choose_tagger():
 	var player_number = RandomNumberGenerator.new().randi_range(0, 1)
 	if player_number == 0:
 		_player1.istagger = true
+		_player1.can_tag = true
 	else:
 		_player2.istagger = true
+		_player2.can_tag = true
 
 func tagged(tagger, player_number):
 	tagger.istagger = false

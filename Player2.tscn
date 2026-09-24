@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://b6jt0ky4ekvrq" path="res://Assets/Sound/wahoo.wav" id="6_yn16u"]
 [ext_resource type="Texture2D" uid="uid://br3lqfbo4juax" path="res://Assets/pixel-16x16 (2).png" id="7_nc2sl"]
 [ext_resource type="AudioStream" uid="uid://co83566rlba6t" path="res://Assets/Sound/character_explodes.mp3" id="7_t46hy"]
+[ext_resource type="AudioStream" uid="uid://bjeoi2xipsfvv" path="res://Assets/Sound/bonk.wav" id="10_5twf5"]
+[ext_resource type="AudioStream" uid="uid://ceql5iqxu0dvf" path="res://Assets/Sound/hit.wav" id="11_tya7o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8dv2"]
 atlas = ExtResource("3_t46hy")
@@ -377,6 +379,12 @@ one_shot = true
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=1536795015]
 wait_time = 0.1
 one_shot = true
+
+[node name="BonkSound" type="AudioStreamPlayer2D" parent="." unique_id=2014613641]
+stream = ExtResource("10_5twf5")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=769900497]
+stream = ExtResource("11_tya7o")
 
 [connection signal="body_entered" from="TouchBox" to="." method="_on_touch_box_body_entered"]
 [connection signal="body_exited" from="TouchBox" to="." method="_on_touch_box_body_exited"]
