@@ -40,6 +40,10 @@ func _physics_process(delta):
 		teleporting = false
 		teleport_player.visible = true
 		teleporter_disappear()
+		if player1.istagger:
+			player1.can_tag = true
+		else:
+			player2.can_tag = true
 		teleport_player = null
 
 func timer():
@@ -71,7 +75,8 @@ func teleporter_entered(teleporter: Node2D, player: CharacterBody2D):
 		teleport_target = teleporter_b.global_position
 	else:
 		teleport_target = teleporter_a.global_position
-
+	print(player.global_position.distance_to(teleport_target))
+	teleport_duration = (player.global_position.distance_to(teleport_target)) / 300
 	teleport_time = 0.0
 	teleporting = true
 	
