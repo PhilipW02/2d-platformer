@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://co83566rlba6t" path="res://Assets/Sound/character_explodes.mp3" id="7_t46hy"]
 [ext_resource type="AudioStream" uid="uid://bjeoi2xipsfvv" path="res://Assets/Sound/bonk.wav" id="10_5twf5"]
 [ext_resource type="AudioStream" uid="uid://ceql5iqxu0dvf" path="res://Assets/Sound/hit.wav" id="11_tya7o"]
+[ext_resource type="Texture2D" uid="uid://cj5wklv4rfs0b" path="res://Assets/Star.png" id="12_yn16u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8dv2"]
 atlas = ExtResource("3_t46hy")
@@ -385,6 +386,12 @@ stream = ExtResource("10_5twf5")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=769900497]
 stream = ExtResource("11_tya7o")
+
+[node name="telportindicator" type="Sprite2D" parent="." unique_id=1542338494]
+unique_name_in_owner = true
+position = Vector2(0, 3.999999)
+scale = Vector2(0.113571435, 0.113571435)
+texture = ExtResource("12_yn16u")
 
 [connection signal="body_entered" from="TouchBox" to="." method="_on_touch_box_body_entered"]
 [connection signal="body_exited" from="TouchBox" to="." method="_on_touch_box_body_exited"]

@@ -5,10 +5,14 @@ extends CharacterBody2D
 @export var speed = 240.0
 @export var player_number: int
 @onready var taggerindicator = $taggerindicator
+@onready var TPIndicator = $telportindicator
 @onready var character_animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var explode_character = $Explosion
 @onready var AirTimer = $AirTimer
 @onready var hit = $HitSound
+
+func _ready() -> void:
+	TPIndicator.visible = false
 
 var istagger = false:
 	set(value):

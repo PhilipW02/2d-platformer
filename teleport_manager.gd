@@ -11,6 +11,8 @@ var teleport_duration := 1.0
 var teleporting := false
 @onready var player1 = %Player1
 @onready var player2 = %Player2
+@onready var telind1 = %Player1/telportindicator
+@onready var telind2 = %Player2/telportindicator
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -70,6 +72,10 @@ func teleporter_entered(teleporter: Node2D, player: CharacterBody2D):
 	teleport_player = player
 	teleport_start = player.global_position
 	player.visible = false
+	if player == player1:
+		telind1.visible = true
+	else:
+		telind2.visible = true
 
 	if teleporter == teleporter_a:
 		teleport_target = teleporter_b.global_position
