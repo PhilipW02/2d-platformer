@@ -344,6 +344,17 @@ player_number = 2
 sprite_frames = SubResource("SpriteFrames_ornx7")
 animation = &"idle"
 
+[node name="taggerindicator" type="Sprite2D" parent="." unique_id=864457718]
+texture_filter = 1
+position = Vector2(0, -17)
+texture = ExtResource("7_nc2sl")
+
+[node name="telportindicator" type="Sprite2D" parent="." unique_id=1542338494]
+unique_name_in_owner = true
+position = Vector2(0, 3.999999)
+scale = Vector2(0.113571435, 0.113571435)
+texture = ExtResource("12_yn16u")
+
 [node name="Explosion" type="AnimatedSprite2D" parent="." unique_id=201889325]
 scale = Vector2(0.33333334, 0.27358487)
 sprite_frames = SubResource("SpriteFrames_t46hy")
@@ -368,11 +379,6 @@ collision_priority = 10.0
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_5twf5")
 
-[node name="taggerindicator" type="Sprite2D" parent="." unique_id=864457718]
-texture_filter = 1
-position = Vector2(0, -17)
-texture = ExtResource("7_nc2sl")
-
 [node name="AirTimer" type="Timer" parent="." unique_id=1090001442]
 wait_time = 0.1
 one_shot = true
@@ -386,12 +392,7 @@ stream = ExtResource("10_5twf5")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=769900497]
 stream = ExtResource("11_tya7o")
-
-[node name="telportindicator" type="Sprite2D" parent="." unique_id=1542338494]
-unique_name_in_owner = true
-position = Vector2(0, 3.999999)
-scale = Vector2(0.113571435, 0.113571435)
-texture = ExtResource("12_yn16u")
+volume_db = -10.0
 
 [connection signal="body_entered" from="TouchBox" to="." method="_on_touch_box_body_entered"]
 [connection signal="body_exited" from="TouchBox" to="." method="_on_touch_box_body_exited"]

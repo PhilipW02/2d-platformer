@@ -34,13 +34,15 @@ func _physics_process(delta):
 
 	var t: float = clamp(teleport_time / teleport_duration, 0.0, 1.0)
 	t = smoothstep(0.0, 1.0, t)
-
+	
 	teleport_player.global_position = teleport_start.lerp(teleport_target, t)
 
 	if t >= 1.0:
 		teleport_player.global_position = teleport_target
 		teleporting = false
-		teleport_player.visible = true
+		teleport_player.get_child(0).visible = true
+		teleport_player.get_child(1).visible = true
+		teleport_player.get_child(2).visible = false
 		teleporter_disappear()
 		if player1.istagger:
 			player1.can_tag = true
@@ -49,7 +51,7 @@ func _physics_process(delta):
 		teleport_player = null
 
 func timer():
-	await get_tree().create_timer(randi_range(5, 15)).timeout
+	await get_tree().create_timer(randi_range(1, 2)).timeout
 	teleporter_appear()
 
 func teleporter_appear():
@@ -67,15 +69,18 @@ func teleporter_appear():
 	teleporter_b.teleporter_entered.connect(teleporter_entered)
 
 func teleporter_entered(teleporter: Node2D, player: CharacterBody2D):
+	print(teleport_target)
 	player1.can_tag = false
 	player2.can_tag = false
 	teleport_player = player
 	teleport_start = player.global_position
-	player.visible = false
-	if player == player1:
-		telind1.visible = true
-	else:
-		telind2.visible = true
+	player.visible = true
+	var body = player.get_child(0)
+	var tagind = player.get_child(1)
+	var teleportind = player.get_child(2)
+	body.visible = false
+	tagind.visible = false
+	teleportind.visible = true
 
 	if teleporter == teleporter_a:
 		teleport_target = teleporter_b.global_position

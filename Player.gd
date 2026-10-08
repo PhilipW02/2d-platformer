@@ -19,6 +19,7 @@ var istagger = false:
 		istagger = value
 		if taggerindicator:
 			taggerindicator.visible = value
+
 @export var can_tag = false
 var can_jump = true
 
