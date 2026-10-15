@@ -19,12 +19,12 @@ func tagged(tagger, player_number):
 	player_number.istagger = true
 
 # Additions
-# working Timer
-# Teleport appear timer (random?)
+# working Timer [DONE]
+# Teleport appear timer (random?) [DONE]
 # make timer transparent-ish when player is close
 
 # Things to fix
-# entered_teleporter prints even when teleporter is not visible
+# entered_teleporter prints even when teleporter is not visible [FIXED]
 
 # Links
 # https://phantom-camera.dev/follow-modes/group

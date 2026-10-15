@@ -44,6 +44,8 @@ func _physics_process(delta):
 		teleport_player.get_child(1).visible = true
 		teleport_player.get_child(2).visible = false
 		teleporter_disappear()
+		print(teleport_player.can_move)
+		teleport_player.can_move = true
 		if player1.istagger:
 			player1.can_tag = true
 		else:
@@ -51,7 +53,7 @@ func _physics_process(delta):
 		teleport_player = null
 
 func timer():
-	await get_tree().create_timer(randi_range(1, 2)).timeout
+	await get_tree().create_timer(randi_range(10, 15)).timeout
 	teleporter_appear()
 
 func teleporter_appear():
@@ -72,14 +74,13 @@ func teleporter_entered(teleporter: Node2D, player: CharacterBody2D):
 	print(teleport_target)
 	player1.can_tag = false
 	player2.can_tag = false
+	player.can_move = false
 	teleport_player = player
 	teleport_start = player.global_position
 	player.visible = true
 	var body = player.get_child(0)
-	var tagind = player.get_child(1)
 	var teleportind = player.get_child(2)
 	body.visible = false
-	tagind.visible = false
 	teleportind.visible = true
 
 	if teleporter == teleporter_a:

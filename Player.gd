@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var gravity = 980.665
 @export var speed = 240.0
 @export var player_number: int
+@export var can_move: bool = true
 @onready var taggerindicator = $taggerindicator
 @onready var TPIndicator = $telportindicator
 @onready var character_animation: AnimatedSprite2D = $AnimatedSprite2D
@@ -73,7 +74,7 @@ func _physics_process(_delta: float) -> void:
 	var jump_buffer = AirTimer.time_left > 0 and is_on_floor()
 	
 	#Jump
-	if (Input.is_action_just_pressed("Jump P" + str(player_number))) and can_jump or jump_buffer:
+	if (Input.is_action_just_pressed("Jump P" + str(player_number))) and can_move and can_jump or jump_buffer:
 		velocity.y = -jump_impulse
 		$JumpSound.play()
 		can_jump = false
@@ -88,12 +89,13 @@ func _physics_process(_delta: float) -> void:
 		
 	#Horizontal movement
 	var dir = Input.get_axis("Left P" + str(player_number), "Right P" + str(player_number))
-	velocity.x = dir * speed
+	if can_move:
+		velocity.x = dir * speed
 	
-	if Input.is_action_just_pressed("Left P" + str(player_number)):
+	if Input.is_action_just_pressed("Left P" + str(player_number)) and can_move:
 		$AnimatedSprite2D.flip_h = true
 		
-	elif Input.is_action_just_pressed("Right P" + str(player_number)):
+	elif Input.is_action_just_pressed("Right P" + str(player_number)) and can_move:
 		$AnimatedSprite2D.flip_h = false
 	
 	# Hit Ceiling
