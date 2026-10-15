@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var explode_character = $Explosion
 @onready var AirTimer = $AirTimer
 @onready var hit = $HitSound
+@onready var part = $GPUParticles2D
 
 func _ready() -> void:
 	TPIndicator.visible = false
@@ -33,6 +34,8 @@ func get_tagged() -> void:
 	istagger = true
 	can_tag = false
 	hit.play()
+	part.emitting = true
+
 
 ## Tagger Logic
 func _on_touch_box_body_entered(body: Node2D) -> void:
