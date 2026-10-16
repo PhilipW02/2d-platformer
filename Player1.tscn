@@ -335,7 +335,14 @@ size = Vector2(20, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkqrb"]
 size = Vector2(20, 26)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m1d2g"]
+[sub_resource type="Gradient" id="Gradient_m1d2g"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3ydit"]
+gradient = SubResource("Gradient_m1d2g")
+width = 4
+height = 4
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ydit"]
 particle_flag_disable_z = true
@@ -345,8 +352,8 @@ initial_velocity_min = 20.0
 initial_velocity_max = 85.0
 gravity = Vector3(0, 98, 0)
 collision_mode = 1
-collision_friction = 0.0
-collision_bounce = 0.18
+collision_friction = 0.25
+collision_bounce = 0.15
 
 [node name="Player1" type="CharacterBody2D" unique_id=393482877 groups=["players"]]
 collision_layer = 2
@@ -410,8 +417,8 @@ volume_db = -15.0
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2093575173]
 emitting = false
 amount = 24
-texture = SubResource("PlaceholderTexture2D_m1d2g")
-lifetime = 0.5
+texture = SubResource("GradientTexture2D_3ydit")
+lifetime = 1.5
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
