@@ -11,7 +11,9 @@ extends CharacterBody2D
 @onready var explode_character = $Explosion
 @onready var AirTimer = $AirTimer
 @onready var hit = $HitSound
-@onready var part = $GPUParticles2D
+@onready var hitPart = $GPUParticles2D
+@onready var oldtaggervely
+var wind_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	TPIndicator.visible = false
@@ -34,8 +36,9 @@ func get_tagged() -> void:
 	istagger = true
 	can_tag = false
 	hit.play()
-	part.emitting = true
-
+	print(velocity.y, oldtaggervely)
+	if velocity.y > 5:
+		hitPart.emitting = true
 
 ## Tagger Logic
 func _on_touch_box_body_entered(body: Node2D) -> void:
@@ -64,11 +67,13 @@ func _on_coyote_timer_timeout():
 func _physics_process(_delta: float) -> void:		
 	if can_jump == false and is_on_floor():
 		can_jump = true
-		
+	#print(velocity.y)
 	if istagger == false:
 		taggerindicator.visible = false
 	if istagger == true:
 		taggerindicator.visible = true
+		oldtaggervely = velocity.y
+	#print('oldtaggervely:',oldtaggervely)
 
 	#Gravity
 	if not is_on_floor():
@@ -104,6 +109,9 @@ func _physics_process(_delta: float) -> void:
 	# Hit Ceiling
 	if is_on_ceiling():
 		$BonkSound.play()
+	
+	# Wind Physics
+	velocity += wind_velocity * 0.4
 	
 	_set_animation(dir)
 	move_and_slide()

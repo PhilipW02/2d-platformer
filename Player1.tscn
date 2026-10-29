@@ -336,13 +336,14 @@ size = Vector2(20, 26)
 size = Vector2(20, 26)
 
 [sub_resource type="Gradient" id="Gradient_m1d2g"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.010380623, 0.027681662)
+colors = PackedColorArray(0.28294948, 0.7525212, 0, 1, 1, 0, 0, 1, 0.25413436, 0.63011545, 0.20458996, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3ydit"]
 gradient = SubResource("Gradient_m1d2g")
 width = 4
 height = 4
+fill_to = Vector2(0, 0)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ydit"]
 particle_flag_disable_z = true
@@ -418,7 +419,7 @@ volume_db = -15.0
 emitting = false
 amount = 24
 texture = SubResource("GradientTexture2D_3ydit")
-lifetime = 1.5
+lifetime = 0.5
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0

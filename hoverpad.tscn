@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://rads08ng5v2c"]
+
+[ext_resource type="PackedScene" uid="uid://rads08ng5v2c" path="res://hoverpad.tscn" id="1_20c8b"]
+
+[node name="Area2D" type="Area2D" unique_id=890513504]
+
+[node name="HoverPad" parent="." unique_id=631852977 instance=ExtResource("1_20c8b")]

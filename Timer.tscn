@@ -8,30 +8,28 @@
 script = ExtResource("2_kkeil")
 
 [node name="Board" type="Sprite2D" parent="." unique_id=1990714267]
-position = Vector2(576, 38)
 scale = Vector2(5, 5)
 texture = ExtResource("1_2p01c")
 
 [node name="Numb1" type="Sprite2D" parent="." unique_id=1676952831]
-position = Vector2(575, 38)
 scale = Vector2(5, 5)
 texture = ExtResource("3_kkeil")
 hframes = 10
 
 [node name="Numb2" type="Sprite2D" parent="." unique_id=746348755]
-position = Vector2(550, 38.000004)
+position = Vector2(-25, 0)
 scale = Vector2(5, 5)
 texture = ExtResource("3_kkeil")
 hframes = 10
 
 [node name="Numb3" type="Sprite2D" parent="." unique_id=1818805700]
-position = Vector2(510, 38.000004)
+position = Vector2(-65, 0)
 scale = Vector2(5, 5)
 texture = ExtResource("3_kkeil")
 hframes = 10
 
 [node name="Numb4" type="Sprite2D" parent="." unique_id=1278747709]
-position = Vector2(485, 38)
+position = Vector2(-90, 0)
 scale = Vector2(5, 5)
 texture = ExtResource("3_kkeil")
 hframes = 10

@@ -336,8 +336,8 @@ size = Vector2(20, 26)
 size = Vector2(20, 26)
 
 [sub_resource type="Gradient" id="Gradient_m1d2g"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
+offsets = PackedFloat32Array(0.0968858)
+colors = PackedColorArray(0, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yn16u"]
 gradient = SubResource("Gradient_m1d2g")
@@ -418,7 +418,7 @@ volume_db = -15.0
 emitting = false
 amount = 24
 texture = SubResource("GradientTexture2D_yn16u")
-lifetime = 1.5
+lifetime = 0.5
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
